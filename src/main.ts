@@ -1,20 +1,24 @@
-function barajarCartas(carta: any): void {
-  // Inicializamos un índice 'currentIndex' en la longitud del array.
-  let currentIndex = carta.length;
-  let randomIndex: number;
+const containerCarta = document.querySelectorAll(".container-carta");
 
-  // Mientras queden elementos a barajar.
-  while (currentIndex !== 0) {
-    // Elegimos un elemento restante al azar.
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
+containerCarta.forEach((carta, indice) => {
+  const infoCarta = coleccionCartas[indice];
 
-    // Intercambiamos el elemento actual con el elemento elegido al azar.
-    [carta[currentIndex], carta[randomIndex]] = [
-      carta[randomIndex],
-      carta[currentIndex],
-    ];
-  }
+  const elementoImagen = document.createElement("img");
+  elementoImagen.src = infoCarta.imagen;
+  elementoImagen.alt = `Carta ${infoCarta.idFoto}`;
+  elementoImagen.classList.add("oculto");
+  carta.appendChild(elementoImagen);
 
-  return carta;
-}
+  const voltearCarta = (): void => {
+    if (
+      carta instanceof HTMLElement &&
+      elementoImagen instanceof HTMLImageElement
+    ) {
+      elementoImagen.classList.toggle("oculto");
+      carta.classList.toggle("bg-frontal");
+      carta.classList.toggle("bg-reves");
+    }
+  };
+  if (carta instanceof HTMLElement)
+    carta.addEventListener("click", voltearCarta);
+});
