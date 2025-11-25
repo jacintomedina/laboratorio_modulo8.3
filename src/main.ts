@@ -1,5 +1,3 @@
-import { coleccionCartas } from "./modelo";
-
 const containerCarta = document.querySelectorAll(".container-carta");
 
 containerCarta.forEach((carta, indice) => {
