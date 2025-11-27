@@ -35,8 +35,8 @@ export const mapearDivsCartas = () => {
 
 const manejarSegundaCarta = () => {
   if (tablero.estadoPartida === "DosCartasLevantadas") {
+    esSegundaCarta(tablero);
     setTimeout(() => {
-      esSegundaCarta(tablero);
       actualizarContadorTurnos();
       actualizarTablero();
     }, 1000);

@@ -61,6 +61,8 @@ export const parejaEncontrada = (
 ): void => {
   tablero.cartas[indiceA].encontrada = true;
   tablero.cartas[indiceB].encontrada = true;
+  tablero.indiceCartaVolteadaA = undefined;
+  tablero.indiceCartaVolteadaB = undefined;
 
   if (esPartidaCompleta(tablero)) {
     tablero.estadoPartida = "PartidaCompleta";
@@ -76,6 +78,8 @@ export const parejaNoEncontrada = (
 ): void => {
   tablero.cartas[indiceA].estaVuelta = false;
   tablero.cartas[indiceB].estaVuelta = false;
+  tablero.indiceCartaVolteadaA = undefined;
+  tablero.indiceCartaVolteadaB = undefined;
 
   tablero.estadoPartida = "CeroCartasLevantadas";
 };
