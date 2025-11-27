@@ -1,13 +1,11 @@
-import { tablero } from "./modelo";
+import { Tablero, tablero } from "./modelo";
 import {
   sePuedeVoltearLaCarta,
   iniciaPartida,
   voltearLaCarta,
-  esSegundaCarta,
-  mostrarMensaje,
-  limpiarMensaje,
-  ocultarImagenCarta,
-  mostrarImagenCarta,
+  sonPareja,
+  parejaEncontrada,
+  parejaNoEncontrada,
 } from "./motor";
 
 export const mapearDivsCartas = () => {
@@ -81,5 +79,75 @@ export const clickBotonEmpezarPartida = () => {
       actualizarTablero();
       actualizarContadorTurnos();
     });
+  }
+};
+
+const obtenerMensaje = document.getElementById("mensaje");
+
+export const mostrarMensaje = (texto: string) => {
+  const mensaje = obtenerMensaje;
+  if (
+    mensaje !== null &&
+    mensaje !== undefined &&
+    mensaje instanceof HTMLDivElement
+  ) {
+    mensaje.textContent = texto;
+  }
+};
+
+export const limpiarMensaje = () => {
+  const mensaje = obtenerMensaje;
+  if (
+    mensaje !== null &&
+    mensaje !== undefined &&
+    mensaje instanceof HTMLDivElement
+  ) {
+    mensaje.textContent = "";
+  }
+};
+
+export const ocultarImagenCarta = (indice: number) => {
+  const elementoImagen = document.querySelector(
+    `img[data-indice-id="${indice}"]`
+  );
+
+  if (
+    elementoImagen !== null &&
+    elementoImagen !== undefined &&
+    elementoImagen instanceof HTMLImageElement
+  ) {
+    elementoImagen.src = "";
+    const elementoDiv = elementoImagen.parentElement;
+    elementoDiv?.classList.add("bg-reves");
+  }
+};
+
+export const mostrarImagenCarta = (indice: number) => {
+  const elementoImagen = document.querySelector(
+    `img[data-indice-id="${indice}"]`
+  );
+
+  if (
+    elementoImagen !== null &&
+    elementoImagen !== undefined &&
+    elementoImagen instanceof HTMLImageElement
+  ) {
+    elementoImagen.src = tablero.cartas[indice].imagen;
+    const elementoDiv = elementoImagen.parentElement;
+    elementoDiv?.classList.remove("bg-reves");
+  }
+};
+
+export const esSegundaCarta = (tablero: Tablero) => {
+  const indiceCartaA = tablero.indiceCartaVolteadaA;
+  const indiceCartaB = tablero.indiceCartaVolteadaB;
+  if (indiceCartaA !== undefined && indiceCartaB !== undefined) {
+    if (sonPareja(indiceCartaA, indiceCartaB, tablero)) {
+      parejaEncontrada(tablero, indiceCartaA, indiceCartaB);
+    } else {
+      parejaNoEncontrada(tablero, indiceCartaA, indiceCartaB);
+    }
+
+    tablero.intentos++;
   }
 };

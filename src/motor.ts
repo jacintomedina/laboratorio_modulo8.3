@@ -1,4 +1,4 @@
-import { Carta, Tablero, tablero } from "./modelo";
+import { Carta, Tablero } from "./modelo";
 
 export const barajarCartas = (cartas: Carta[]): Carta[] => {
   let currentIndex = cartas.length;
@@ -59,28 +59,13 @@ export const parejaEncontrada = (
   indiceA: number,
   indiceB: number
 ): void => {
-  if (sonPareja(indiceA, indiceB, tablero)) {
-    tablero.cartas[indiceA].encontrada = true;
-    tablero.cartas[indiceB].encontrada = true;
-  }
+  tablero.cartas[indiceA].encontrada = true;
+  tablero.cartas[indiceB].encontrada = true;
+
   if (esPartidaCompleta(tablero)) {
     tablero.estadoPartida = "PartidaCompleta";
   } else {
     tablero.estadoPartida = "CeroCartasLevantadas";
-  }
-};
-
-export const esSegundaCarta = (tablero: Tablero) => {
-  const indiceCartaA = tablero.indiceCartaVolteadaA;
-  const indiceCartaB = tablero.indiceCartaVolteadaB;
-  if (indiceCartaA !== undefined && indiceCartaB !== undefined) {
-    if (sonPareja(indiceCartaA, indiceCartaB, tablero)) {
-      parejaEncontrada(tablero, indiceCartaA, indiceCartaB);
-    } else {
-      parejaNoEncontrada(tablero, indiceCartaA, indiceCartaB);
-    }
-
-    tablero.intentos++;
   }
 };
 
@@ -89,10 +74,9 @@ export const parejaNoEncontrada = (
   indiceA: number,
   indiceB: number
 ): void => {
-  if (!sonPareja(indiceA, indiceB, tablero)) {
-    tablero.cartas[indiceA].estaVuelta = false;
-    tablero.cartas[indiceB].estaVuelta = false;
-  }
+  tablero.cartas[indiceA].estaVuelta = false;
+  tablero.cartas[indiceB].estaVuelta = false;
+
   tablero.estadoPartida = "CeroCartasLevantadas";
 };
 
@@ -113,60 +97,4 @@ export const iniciaPartida = (tablero: Tablero): void => {
   tablero.estadoPartida = "CeroCartasLevantadas";
 
   tablero.intentos = 0;
-};
-
-const obtenerMensaje = document.getElementById("mensaje");
-
-export const mostrarMensaje = (texto: string) => {
-  const mensaje = obtenerMensaje;
-  if (
-    mensaje !== null &&
-    mensaje !== undefined &&
-    mensaje instanceof HTMLDivElement
-  ) {
-    mensaje.textContent = texto;
-  }
-};
-
-export const limpiarMensaje = () => {
-  const mensaje = obtenerMensaje;
-  if (
-    mensaje !== null &&
-    mensaje !== undefined &&
-    mensaje instanceof HTMLDivElement
-  ) {
-    mensaje.textContent = "";
-  }
-};
-
-export const ocultarImagenCarta = (indice: number) => {
-  const elementoImagen = document.querySelector(
-    `img[data-indice-id="${indice}"]`
-  );
-
-  if (
-    elementoImagen !== null &&
-    elementoImagen !== undefined &&
-    elementoImagen instanceof HTMLImageElement
-  ) {
-    elementoImagen.src = "";
-    const elementoDiv = elementoImagen.parentElement;
-    elementoDiv?.classList.add("bg-reves");
-  }
-};
-
-export const mostrarImagenCarta = (indice: number) => {
-  const elementoImagen = document.querySelector(
-    `img[data-indice-id="${indice}"]`
-  );
-
-  if (
-    elementoImagen !== null &&
-    elementoImagen !== undefined &&
-    elementoImagen instanceof HTMLImageElement
-  ) {
-    elementoImagen.src = tablero.cartas[indice].imagen;
-    const elementoDiv = elementoImagen.parentElement;
-    elementoDiv?.classList.remove("bg-reves");
-  }
 };
