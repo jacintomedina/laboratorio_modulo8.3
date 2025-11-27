@@ -1,24 +1,9 @@
-const containerCarta = document.querySelectorAll(".container-carta");
+import { tablero } from "./modelo";
+import { iniciaPartida } from "./motor";
+import { clickBotonEmpezarPartida, mapearDivsCartas } from "./ui";
 
-containerCarta.forEach((carta, indice) => {
-  const infoCarta = coleccionCartas[indice];
-
-  const elementoImagen = document.createElement("img");
-  elementoImagen.src = infoCarta.imagen;
-  elementoImagen.alt = `Carta ${infoCarta.idFoto}`;
-  elementoImagen.classList.add("oculto");
-  carta.appendChild(elementoImagen);
-
-  const voltearCarta = (): void => {
-    if (
-      carta instanceof HTMLElement &&
-      elementoImagen instanceof HTMLImageElement
-    ) {
-      elementoImagen.classList.toggle("oculto");
-      carta.classList.toggle("bg-frontal");
-      carta.classList.toggle("bg-reves");
-    }
-  };
-  if (carta instanceof HTMLElement)
-    carta.addEventListener("click", voltearCarta);
+document.addEventListener("DOMContentLoaded", () => {
+  mapearDivsCartas();
+  clickBotonEmpezarPartida();
+  iniciaPartida(tablero);
 });

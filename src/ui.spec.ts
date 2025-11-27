@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import { iniciaPartida } from "./ui";
+import { iniciaPartida } from "./motor";
 import * as motor from "./motor";
 import { Tablero } from "./modelo";
 
@@ -19,17 +19,14 @@ describe("iniciaPartida", () => {
       encontrada: false,
     };
 
-    // Este es el resultado "trucado" que queremos que devuelva el mock
     const cartasBarajadasSimuladas = [carta2, carta1];
 
     const tablero: Tablero = {
       cartas: [carta1, carta2],
       estadoPartida: "CeroCartasLevantadas",
+      intentos: 0,
     };
 
-    // 2. EL ESPÍA (MOCK)
-    // "Espía el archivo 'motor'. Cuando alguien pida 'barajarCartas',
-    // dale 'cartasBarajadasSimuladas' en vez de ejecutar la lógica real."
     const spyBarajar = vi
       .spyOn(motor, "barajarCartas")
       .mockReturnValue(cartasBarajadasSimuladas);

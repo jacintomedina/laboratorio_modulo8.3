@@ -7,8 +7,9 @@
 body {
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  margin-top: 2rem;
 }
 
 #grid-cartas {
@@ -21,10 +22,6 @@ body {
   justify-content: center;
 }
 
-.oculto {
-  display: none;
-}
-
 .container-carta {
   width: 200px;
   height: 200px;
@@ -33,13 +30,48 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin-left: 1rem;
+  background-color: rgb(160, 226, 255);
+  transition: transform 0.3s ease-in-out;
+}
+
+.container-carta:hover {
+  transform: scale(1.05);
 }
 
 .bg-reves {
   background-color: rgb(201, 114, 255);
 }
 
-.bg-frontal {
-  background-color: rgb(160, 226, 255);
+.container-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  font-family: "Poppins", sans-serif;
+  padding: 0.75rem 3rem;
+  border-radius: 1rem;
+  background-color: rgb(101, 47, 238);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#mensaje {
+  padding-top: 1rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+}
+
+#contador-turnos {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  font-weight: bold;
 }
